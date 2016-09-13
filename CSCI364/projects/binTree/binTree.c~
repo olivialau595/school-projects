@@ -1,0 +1,174 @@
+// Olivia Lau
+// September 7, 2016
+// Compilers: Professor King
+// Stack of Binary Trees
+// binTree.c
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 10
+
+typedef int bool;
+#define true 1
+#define false 0
+
+struct element {
+    struct node *binarytree;    // should be a pointer
+    char name[30];
+};
+
+struct node {
+    char data;
+    struct node *left;
+    struct node *right;
+};
+
+typedef struct element ELEMENT;
+typedef struct node NODE;
+
+ELEMENT mystack[MAX];
+int size = -1;
+
+
+void push();
+NODE* pop();
+void printree(NODE*);
+void add(char);
+void insert(NODE*, char);
+void search(char);
+
+main () {
+    int option = 1;
+    char userinput;
+    char symbol;
+    
+    while (option) {
+        printf("Enter a command: ");
+        scanf("%c", &userinput);
+        userinput = toupper(userinput);
+
+        switch (userinput) {
+        case 'U':
+            push();
+            break;
+        case 'O':
+            pop();
+            break;
+        case 'A':
+            printf("Enter symbol to add: ");
+            scanf("%s", &symbol);
+            add(symbol);
+            break;
+        case 'S':
+            printf("Enter symbol to search: ");
+            scanf("%s", &symbol);
+            search(symbol);
+            break;
+        case 'Q':
+            option = 0;
+            break;
+        default:
+            printf("Not a command\n");
+            break;
+        }
+
+        scanf("%c", &userinput);
+    }
+
+    exit(0);
+}
+
+void push() {
+    if (size == (MAX - 1)) {
+        printf("Out of memory: stack is full\n");
+        return;
+    } else {
+        size++;
+        mystack[size].binarytree = (NODE *)malloc(sizeof(NODE));
+        mystack[size].binarytree -> data = 'x';
+        mystack[size].binarytree -> left = NULL;
+        mystack[size].binarytree -> right = NULL;
+    }
+    return;
+
+}
+
+void printtree(NODE *top)
+//NODE *top;
+{
+    printf("Top node is %c\n", top -> data);
+    if(top -> left != NULL)
+        printtree(top -> left);
+    if(top -> right != NULL)
+        printtree(top -> right);
+}
+
+NODE* pop() {
+    NODE *top;
+    if (size == -1) {
+        printf("Stack is empty\n");
+        return NULL;
+    } else {
+        // TODO: need to change since each element is a tree
+        top = mystack[size].binarytree;
+        //printf("Top is %c\n", mystack[size].binarytree -> data);
+        //fflush(stdout);
+        size--;
+        printtree(top);
+        return top;
+    }
+
+}
+
+void add( char symbol)
+//char symbol;
+{
+    insert(mystack[size].binarytree, symbol);
+    printf("pointer is %p\n", mystack[size].binarytree);
+    printf("size is %d\n", size);
+    printf("in add, data is %c\n", mystack[size].binarytree->data);
+    fflush(stdout);
+    return;
+    
+}
+
+void insert(NODE *curr, char symbol)
+//NODE *curr;
+//char symbol;
+{
+    NODE *temp = NULL;
+
+    if (curr == NULL) {
+        curr = (NODE *) malloc(sizeof(NODE));
+        curr -> data = symbol;
+        curr -> left = NULL;
+        curr -> right = NULL;
+
+        // TODO: FIX THIS
+        printf("   current data is %c\n", curr -> data);
+        printf("   size is %d\n", size);
+        printf("   pointer is %p\n", curr);
+        return;
+    }
+
+    if (curr -> data == symbol) {
+        printf("Error: symbol already exists\n");
+        return;
+    }
+
+    if (curr -> data > symbol)
+        insert(curr -> left, symbol);
+    else if (curr -> data < symbol)
+        insert(curr -> right, symbol);
+
+}
+
+void search(char symbol)
+//char symbol;
+{
+
+}
+
+
+
