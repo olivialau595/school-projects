@@ -1,5 +1,5 @@
 // Olivia Lau
-// September 7, 2016
+// September 13, 2016
 // Compilers: Professor King
 // Stack of Binary Trees
 // binTree.c
