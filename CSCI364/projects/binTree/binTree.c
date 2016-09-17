@@ -76,13 +76,16 @@ main () {
             int found =-1;
             int i = size;
             do{
+                printf("i is %d and size is %d\n", i, size);
                 found = search(mystack[i].binarytree, symbol, 0);
                 printf("found is %d\n", found);
                 i--;
-            }while(i < size+1 && found == -1);
+            }while(i >= 0 && found == -1);
             
-            if(found > -1)
+            if(found > -1) {
                 printf("Found %c at depth %d\n", symbol, found);
+                printf("Found in tree: %c\n", mystack[i+1].name);
+            }
             break;
         case 'Q':
             option = 0;
@@ -189,7 +192,6 @@ NODE* insert(NODE *curr, char symbol)
 
 int search(NODE* tree, char symbol, int depth)
 {
-    printf("data is %c\n", tree -> data);
     if(tree == NULL) 
         return -1;
     else if(tree -> data == symbol)
