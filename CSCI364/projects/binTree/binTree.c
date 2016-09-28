@@ -83,7 +83,7 @@ main () {
             }while(i >= 0 && found == -1);
             
             if(found > -1) {
-                printf("Found %c at depth %d\n", symbol, found);
+                printf("Found %c at depth %d\n", symbol, (size - i));
                 printf("Found in tree: %c\n", mystack[i+1].name);
             }
             break;
@@ -155,9 +155,14 @@ NODE* pop() {
 
 void add( char symbol)
 {
-    mystack[size].binarytree = insert(mystack[size].binarytree, symbol);
-    printf("Added %c into the tree\n", symbol);
-    fflush(stdout);
+    printf("Found is %d\n",search(mystack[size].binarytree, symbol, 0) );
+    if (search(mystack[size].binarytree, symbol, 0) != -1){
+        printf("Can not add %c to the tree\n", symbol);
+    } else {
+        mystack[size].binarytree = insert(mystack[size].binarytree, symbol);
+        printf("Added %c into the tree\n", symbol);
+        fflush(stdout);
+    }
     return;
     
 }
